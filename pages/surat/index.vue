@@ -5,7 +5,11 @@ const { pending, data: surat } = await useLazyFetch('https://equran.id/api/surat
 <template>
      <Navbar>
      </Navbar>
- 
+     <div v-if="pending">
+        <div class="w-max-screen h-[100vh] flex items-center justify-center">
+            loading...
+        </div>
+    </div>
     <div class="max-w-screen-md mx-auto">
      <ItemSurat 
        v-for="item in surat" :key="item.id" :ref="search"

@@ -3,5 +3,6 @@
         <button class="p-2 text-left border-b border-line">Lihat Latin</button>
         <button class="p-2 text-left border-b border-line">Lihat Terjemahan</button>
         <button class="p-2 text-left ">Tandai Sebagai Bacan Terakhir</button>
+        <slot />
     </div>
 </template>
