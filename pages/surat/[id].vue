@@ -34,7 +34,7 @@ const modal = () => {
         <div class="max-w-screen-md mx-auto">
         <ul>
             <li v-for="ayat in surat.ayat" :key="ayat"
-                class="border-b border-cyan-50 text-slate-900 hover:bg-cyan-50 transition">
+                class="border-b border-cyan-50 text-slate-900 hover:bg-cyan-50 transition" :id="'ayat_'+ayat.nomor">
                 <div class="flex justify-between items-center relative ">
                     <div class=" p-4 shrink-0 text-center">
                         <button @click="modal"

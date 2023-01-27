@@ -4,7 +4,7 @@ const { pending, refresh, data: surat } = await useLazyFetch('https://equran.id/
 const search = ref("")
 
 const list = computed(()=>{
-  surat.value = surat.value.filter((item) => item.nama_latin.toLowerCase().match(search.value))
+  surat.value = surat.value.filter((item) => item.nama_latin.match(search.value))
    return surat.value
 })
 
