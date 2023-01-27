@@ -1,26 +1,5 @@
 <script setup>
-const data = ref([
-  {
-    nama:'Wahyudi',
-    umur:44
-  },
-  {
-    nama:'Nurdianah',
-    umur:36,
-  },
-  {
-    nama:'Muhammad Alfatih',
-    umur:14,
-  },
-  {
-    nama:'Muhammad Alfaizi',
-    umur:12,
-  },
-  {
-    nama:'Muhammad Farel Ardafa',
-    umur:4
-  }
-])
+
 const { pending, refresh, data: surat } = await useLazyFetch('https://equran.id/api/surat')
 const search = ref("")
 
@@ -36,17 +15,37 @@ watch(search, (newValue) => {
   }else{
     console.log(newValue)
   }
-  console.log(search.value)
 })
+
+const back = () => {
+  refresh()
+  return list
+}
 
 </script>
 <template>
   <div>
-    <input type="text" v-model="search">
-<ul>
-  <li v-for="item in list" :key="item">
-    {{ item.nama_latin }}
-  </li>
-</ul>
+    <Navbar>
+      <input type="text" v-model="search" @keydown="back" class="rounded-full py-1 px-4" placeholder="Cari Surat">
+    </Navbar>
+   
+    <div v-if="pending">
+        <div class="w-max-screen h-[100vh] flex items-center justify-center">
+            loading...
+        </div>
+    </div>
+    <div class="max-w-screen-md mx-auto">
+     <ItemSurat 
+       v-for="item in list" :key="item" 
+       :link="'/surat/'+item.nomor"
+       :nomor="item.nomor"
+       :nama="item.nama"
+       :nama_latin="item.nama_latin"
+       :jumlah_ayat="item.jumlah_ayat"
+       :tempat_turun="item.tempat_turun"
+       :arti="item.arti"
+       :deskripsi="item.deskripsi"
+       />
+      </div>
   </div>
 </template>
