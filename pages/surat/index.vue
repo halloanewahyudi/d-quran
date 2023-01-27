@@ -1,9 +1,27 @@
 <script setup>
-const { pending, data: surat } = await useLazyFetch('https://equran.id/api/surat')
+const { pending, refresh, data: surat } = await useLazyFetch('https://equran.id/api/surat')
+const search = ref(null)
+const list = computed(()=>{
+  // `items` is a ref with array value
+  surat.value = surat.value.filter((item) => item.nama_latin.toLowerCase().match(search.value))
+   return surat.value
+})
+
+watch(search, (newValue) => {
+  if(search.value == 0 ){
+    refresh()
+   console.log('kosong')
+  }else{
+    console.log(newValue)
+  }
+  console.log(search.value)
+})
 
 </script>
 <template>
+
      <Navbar>
+        <input type="text" v-model="search" class="rounded-full py-1 px-4" placeholder="Cari Surat">
      </Navbar>
      <div v-if="pending">
         <div class="w-max-screen h-[100vh] flex items-center justify-center">
@@ -12,7 +30,7 @@ const { pending, data: surat } = await useLazyFetch('https://equran.id/api/surat
     </div>
     <div class="max-w-screen-md mx-auto">
      <ItemSurat 
-       v-for="item in surat" :key="item.id" :ref="search"
+       v-for="item in list" :key="item" 
        :link="'/surat/'+item.nomor"
        :nomor="item.nomor"
        :nama="item.nama"

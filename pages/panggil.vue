@@ -1,41 +1,52 @@
 <script setup>
-const { pending, data: surat } = await useLazyFetch('https://equran.id/api/surat')
-const activeFilter = ref('All');
-const todos = ref("")
+const data = ref([
+  {
+    nama:'Wahyudi',
+    umur:44
+  },
+  {
+    nama:'Nurdianah',
+    umur:36,
+  },
+  {
+    nama:'Muhammad Alfatih',
+    umur:14,
+  },
+  {
+    nama:'Muhammad Alfaizi',
+    umur:12,
+  },
+  {
+    nama:'Muhammad Farel Ardafa',
+    umur:4
+  }
+])
+const { pending, refresh, data: surat } = await useLazyFetch('https://equran.id/api/surat')
+const search = ref("")
 
-function filterTodo(type) {
-      activeFilter.value = type;
-    }
+const list = computed(()=>{
+  surat.value = surat.value.filter((item) => item.nama_latin.toLowerCase().match(search.value))
+   return surat.value
+})
 
-    const getTodos = computed(() => {
-      if (activeFilter.value === 'All') {
-        return todos.value;
-      }
-      return todos.value.filter((item) => item.type === activeFilter.value);
-    });
+watch(search, (newValue) => {
+  if(search.value == 0 ){
+    refresh()
+   console.log('kosong')
+  }else{
+    console.log(newValue)
+  }
+  console.log(search.value)
+})
 
-    const emptyNote = computed(() => {
-      return `There is no tasks with type ${activeFilter.value} so far. Please, add some!`;
-    });
 </script>
 <template>
-  <div class="tags-wrapper">
-    <p v-for="(filter, index) in surat" :key="index">
-      <span
-        @click="filterTodo(filter)"
-         :class="{ active: filter === activeFilter }"
-      >{{ filter.nama_latin }}</span>
-    </p>
+  <div>
+    <input type="text" v-model="search">
+<ul>
+  <li v-for="item in list" :key="item">
+    {{ item.nama_latin }}
+  </li>
+</ul>
   </div>
-  <ul >
-    <li
-      v-for="(todo, index) in getTodos"
-      :key="index"
-      :class="{ done: todo.done }"
-    >
-       <span class="task" @click="doneTodo(todo)">{{ todo.nama_latin }}</span>
-       <span class="label">{{ todo.nama }}</span>
-       <button class="remove-btn" @click="removeTodo(todo.id)"></button>
-    </li>
-  </ul>
 </template>
