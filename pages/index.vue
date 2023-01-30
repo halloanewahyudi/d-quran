@@ -1,10 +1,12 @@
 <script setup>
 import { useLocalStorage , usePreferredDark  } from '@vueuse/core'
-
+const router = useRouter()
+const route =  useRoute()
 const tampil = ref(false)
 const modal = () => {
    tampil.value = true && !tampil.value
 }
+
 
 // is user prefers dark theme
 const isDark = usePreferredDark()
@@ -12,7 +14,7 @@ const isDark = usePreferredDark()
 <template>
      <Navbar></Navbar>
      <div class="max-w-screen-md h-[91.5vh] mx-auto flex flex-col gap-4 items-center justify-center">
-       <NuxtLink to="/surat" class="rounded-full py-3 px-16 bg-slate-900 text-lime-50 text-xl hover:bg-slate-800"> Baca Quran</NuxtLink>
+       <nuxt-link to="/surat" @click="surat" class="rounded-full py-3 px-16 bg-slate-900 text-lime-50 text-xl hover:bg-slate-800"> Baca Quran  </nuxt-link>
        <button for="my-modal" @click="modal" class=" rounded-full py-3 px-16 bg-cyan-900 text-lime-50 text-xl hover:bg-cyan-800 "> Baca Tafsir</button>
     </div>
     <!-- The button to open modal -->

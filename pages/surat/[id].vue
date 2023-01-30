@@ -7,8 +7,11 @@ const modal = () => {
    tampil.value = true && !tampil.value
 }
 
+
 </script>
 <template>
+    <!-- بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْم -->
+ 
  <Navbar>
             <div class="text-cyan-100 flex items-center gap-3">
                 <span class="text-orange-200 text-2xl ar">{{ surat.nama }} </span>  <span>{{ surat.nama_latin }}</span>  
@@ -32,6 +35,12 @@ const modal = () => {
       </figure>
     </nav>
         <div class="max-w-screen-md mx-auto">
+            <div v-if="route.params.id > 1 || route.params.id == 9 ">
+                <div class="flex justify-center text-2xl font-bold ar py-6 my-4 border-b border-cyan-100"> 
+                    بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْم 
+                </div>
+                
+            </div>
         <ul>
             <li v-for="ayat in surat.ayat" :key="ayat"
                 class="border-b border-cyan-50 text-slate-900 hover:bg-cyan-50 transition" :id="'ayat_'+ayat.nomor">
@@ -43,7 +52,11 @@ const modal = () => {
                         </button>
                     </div>
                     <div class="text-right w-full p-4 leading-[220%] ar tracking-[1px] text-2xl font-semibold  ">
-                        {{ ayat.ar }}</div>
+                        {{ ayat.ar }} <br>
+                    </div>
+                </div>
+                <div class="text-right text-md text-slate-500 mb-4">
+                    {{ ayat.idn }}
                 </div>
             </li>
         </ul>
