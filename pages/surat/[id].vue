@@ -55,7 +55,7 @@ const modal = () => {
                         {{ ayat.ar }} <br>
                     </div>
                 </div>
-                <div class="text-right text-md text-slate-500 mb-4">
+                <div class="text-right text-md text-slate-700 mb-4 p-4">
                     {{ ayat.idn }}
                 </div>
             </li>
